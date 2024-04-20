@@ -1,4 +1,4 @@
-package com.scotiabank.digital.factory.adapters.out.repository.student;
+package com.scotiabank.digital.factory.infrastructure.adapters.out.repository.student;
 
 public class Constants {
 

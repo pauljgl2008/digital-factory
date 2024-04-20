@@ -1,6 +1,6 @@
-package com.scotiabank.digital.factory.adapters.out.repository.student;
+package com.scotiabank.digital.factory.infrastructure.adapters.out.repository.student;
 
-import com.scotiabank.digital.factory.adapters.out.repository.student.entity.StudentEntity;
+import com.scotiabank.digital.factory.infrastructure.adapters.out.repository.student.entity.StudentEntity;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Mono;

@@ -1,4 +1,4 @@
-package com.scotiabank.digital.factory.adapters.in.controller.student.dto;
+package com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

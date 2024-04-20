@@ -1,6 +1,6 @@
-package com.scotiabank.digital.factory.adapters.out.repository.student.adapter;
+package com.scotiabank.digital.factory.infrastructure.adapters.out.repository.student.adapter;
 
-import com.scotiabank.digital.factory.adapters.out.repository.student.StudentCrudRepository;
+import com.scotiabank.digital.factory.infrastructure.adapters.out.repository.student.StudentCrudRepository;
 import com.scotiabank.digital.factory.domain.model.Student;
 import com.scotiabank.digital.factory.domain.ports.out.InsertStudentOutputPort;
 import lombok.RequiredArgsConstructor;

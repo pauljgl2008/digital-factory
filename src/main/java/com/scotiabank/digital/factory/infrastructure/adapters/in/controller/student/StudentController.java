@@ -1,8 +1,8 @@
-package com.scotiabank.digital.factory.adapters.in.controller.student;
+package com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student;
 
 
-import com.scotiabank.digital.factory.adapters.in.controller.student.dto.StudentRequestDto;
-import com.scotiabank.digital.factory.adapters.in.controller.student.dto.StudentResponseDto;
+import com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.dto.StudentRequestDto;
+import com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.dto.StudentResponseDto;
 import com.scotiabank.digital.factory.domain.ports.in.GetAllStudentsInputPort;
 import com.scotiabank.digital.factory.domain.ports.in.InsertStudentInputPort;
 import jakarta.validation.Valid;

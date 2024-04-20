@@ -1,4 +1,4 @@
-package com.scotiabank.digital.factory.adapters.out.repository.student.entity;
+package com.scotiabank.digital.factory.infrastructure.adapters.out.repository.student.entity;
 
 import lombok.Getter;
 import lombok.Setter;

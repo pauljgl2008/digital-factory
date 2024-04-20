@@ -1,0 +1,18 @@
+logging.level.com.scotiabank.digital.factory: DEBUG
+logging:
+  level:
+    org:
+      springframework:
+        r2dbc: DEBUG
+spring:
+  application:
+    name: "digital-factory"
+  h2:
+    console:
+      enabled: true
+  datasource:
+    initialization-mode: always  # This enables data source initialization
+    url: jdbc:h2:mem:userdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:

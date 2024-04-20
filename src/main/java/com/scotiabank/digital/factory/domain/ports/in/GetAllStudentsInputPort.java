@@ -1,0 +1,10 @@
+package com.scotiabank.digital.factory.domain.ports.in;
+
+import com.scotiabank.digital.factory.domain.model.Student;
+import reactor.core.publisher.Flux;
+
+public interface GetAllStudentsInputPort {
+
+    Flux<Student> getAll();
+
+}

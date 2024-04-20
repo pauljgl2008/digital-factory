@@ -19,18 +19,15 @@ public class InsertStudentUseCase implements InsertStudentInputPort {
 
     @Override
     public void insert(Student student) {
-        this.insertStudentOutputPort.insert(student);
-//        this.findStudentByIdOutputPort.findById(student.getId())
-//                .hasElement()
-//                .subscribe(studentExist -> {
-//                    if (studentExist) {
-//                        System.out.println("Existe el alumno en BD");
-//                    } else {
-//                        System.out.println("Insertamos el student");
-//                        this.insertStudentOutputPort.insert(student);
-//                    }
-//                });
-
-
+        this.findStudentByIdOutputPort.findById(student.getId())
+                .hasElement()
+                .subscribe(studentExist -> {
+                    if (studentExist) {
+                        System.out.println("Existe el alumno en BD");
+                    } else {
+                        System.out.println("Insertamos el student");
+                        this.insertStudentOutputPort.insert(student);
+                    }
+                });
     }
 }

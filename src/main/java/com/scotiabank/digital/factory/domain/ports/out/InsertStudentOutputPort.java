@@ -5,5 +5,5 @@ import reactor.core.publisher.Mono;
 
 public interface InsertStudentOutputPort {
 
-    Mono<String> insert(Student student);
+    Mono<Void> insert(Student student);
 }

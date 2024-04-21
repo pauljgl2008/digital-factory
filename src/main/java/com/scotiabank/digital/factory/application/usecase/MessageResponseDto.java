@@ -10,5 +10,4 @@ public class MessageResponseDto {
         this.message = message;
     }
 
-    // Getters y Setters (opcional)
 }

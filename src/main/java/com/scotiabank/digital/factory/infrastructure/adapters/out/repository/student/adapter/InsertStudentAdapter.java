@@ -21,11 +21,11 @@ public class InsertStudentAdapter implements InsertStudentOutputPort {
     public Mono<String> insert(Student student) {
         return this.studentCrudRepository
                 .insertStudent(student.getId(), student.getNombre(), student.getApellido(), student.getEstado(), student.getEdad())
-                .then(Mono.just("Estudiante insertado exitosamente")) // Mensaje de éxito
+                .then(Mono.just("Estudiante insertado exitosamente"))
                 .onErrorResume(error -> {
                     log.error("Error al insertar el estudiante 0: " + error.getMessage());
                     throw new InvalidFieldException(HttpStatus.CONFLICT, "id", student.getId(),
-                            "Error al insertar el estudiante 0: "); // Mensaje de error
+                            error.getMessage());
                 });
     }
 

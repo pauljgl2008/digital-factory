@@ -34,14 +34,14 @@ public class InsertStudentUseCase implements InsertStudentInputPort {
                                 .onErrorResume(error -> {
                                     log.error("Error al insertar el estudiante 1: " + error.getMessage());
                                     throw new InvalidFieldException(HttpStatus.CONFLICT, "id", student.getId(),
-                                            "Error al insertar el estudiante 1: ");
+                                            error.getMessage());
                                 });
                     }
                 })
                 .onErrorResume(error -> {
                             log.error("Error al insertar el estudiante 2: " + error.getMessage());
                             throw new InvalidFieldException(HttpStatus.CONFLICT, "id", student.getId(),
-                                    "Error al insertar el estudiante 2: ");
+                                    error.getMessage());
                         }
                 );
     }

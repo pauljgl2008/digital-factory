@@ -21,23 +21,23 @@ public class InsertStudentUseCase implements InsertStudentInputPort {
     }
 
     @Override
-    public Mono<MessageResponseDto> insert(Student student) {
+    public Mono<String> insert(Student student) {
         return this.findStudentByIdOutputPort.findById(student.getId())
                 .hasElement()
                 .flatMap(studentExist -> {
                     if (studentExist) {
-                        return Mono.just(new MessageResponseDto("El estudiante ya existe en la base de datos"));
+                        return Mono.just("El estudiante ya existe en la base de datos");
                     } else {
                         return this.insertStudentOutputPort.insert(student)
-                                .thenReturn(new MessageResponseDto("Estudiante insertado exitosamente"))
+                                .thenReturn("Estudiante insertado exitosamente")
                                 .onErrorResume(error -> {
                                     log.error("Error al insertar el estudiante: " + error.getMessage());
-                                    return Mono.just(new MessageResponseDto("Error al insertar el estudiante: " + error.getMessage()));
+                                    return Mono.just("Error al insertar el estudiante: " + error.getMessage());
                                 });
                     }
                 })
                 .onErrorResume(error -> {
-                    return Mono.just(new MessageResponseDto("Error al procesar la inserción del estudiante"));
+                    return Mono.just("Error al procesar la inserción del estudiante");
                 });
     }
 }

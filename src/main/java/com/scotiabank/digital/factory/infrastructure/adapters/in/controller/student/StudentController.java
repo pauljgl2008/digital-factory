@@ -41,7 +41,7 @@ public class StudentController {
     public Mono<ResponseEntity<MessageResponseDto>> insert(@Valid @RequestBody StudentRequestDto studentRequestDto) {
         log.info(studentRequestDto.toString());
         return this.insertStudentInputPort.insert(this.studentDtoMapper.toStudent(studentRequestDto))
-                .map(message -> ResponseEntity.ok(message))
+                .map(message -> ResponseEntity.ok(new MessageResponseDto(message)))
                 .onErrorResume(error -> {
                     log.error("Error al insertar un estudiante: " + error.getMessage());
                     return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponseDto("Error al insertar un estudiante")));

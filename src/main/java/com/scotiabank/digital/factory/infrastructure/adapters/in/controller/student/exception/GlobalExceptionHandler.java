@@ -1,7 +1,8 @@
 package com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.exception;
 
 import com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.dto.ErrorDto;
-import com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.dto.ErrorResponseDto;
+import com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.dto.GenericErrorResponseDto;
+import com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.dto.InvalidFieldErrorResponseDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -28,9 +29,20 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return this.retrieveBadRequest(ex.getBindingResult().getFieldErrors());
     }
 
+    @ExceptionHandler(UseCaseException.class)
+    public final Mono<ResponseEntity<Object>> serviceExceptionHandler(final UseCaseException ex) {
+        GenericErrorResponseDto response = new GenericErrorResponseDto(
+                ex.getStatusCode().value(),
+                HttpStatus.valueOf(ex.getStatusCode().value()).getReasonPhrase(),
+                ex.getMessage()
+        );
+        return Mono.just(ResponseEntity.status(ex.getStatusCode()).body(response));
+    }
+
     @ExceptionHandler(InvalidFieldException.class)
-    public final Mono<ResponseEntity<Object>> serviceExceptionHandler(final InvalidFieldException ex) {
-        return this.retrieveBadRequest(List.of(this.buildFieldError(ex.getFieldName(), ex.getRejectedValue(), ex.getMessage())));
+    public final Mono<ResponseEntity<Object>> invalidFieldExceptionHandler(final InvalidFieldException ex) {
+        return this.retrieveBadRequest(List.of(this.buildFieldError(ex.getFieldName(), ex.getRejectedValue(),
+                ex.getMessage())));
     }
 
     private Mono<ResponseEntity<Object>> retrieveBadRequest(List<FieldError> fieldErrors) {
@@ -38,7 +50,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .map(err -> new ErrorDto(err.getField(), err.getRejectedValue(), err.getDefaultMessage()))
                 .toList();
 
-        ErrorResponseDto response = new ErrorResponseDto(
+        InvalidFieldErrorResponseDto response = new InvalidFieldErrorResponseDto(
                 HttpStatus.BAD_REQUEST.value(),
                 HttpStatus.BAD_REQUEST.getReasonPhrase(),
                 "Validation failed",

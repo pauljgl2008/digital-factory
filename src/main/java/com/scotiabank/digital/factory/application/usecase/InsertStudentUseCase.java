@@ -5,6 +5,7 @@ import com.scotiabank.digital.factory.domain.model.Student;
 import com.scotiabank.digital.factory.domain.ports.in.InsertStudentInputPort;
 import com.scotiabank.digital.factory.domain.ports.out.FindStudentByIdOutputPort;
 import com.scotiabank.digital.factory.domain.ports.out.InsertStudentOutputPort;
+import com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.exception.UseCaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import reactor.core.publisher.Mono;
@@ -28,20 +29,20 @@ public class InsertStudentUseCase implements InsertStudentInputPort {
                 .hasElement()
                 .flatMap(studentExist -> {
                     if (studentExist) {
-                        throw new InvalidFieldException(HttpStatus.BAD_REQUEST, "id", student.getId(),
+                        throw new UseCaseException(HttpStatus.BAD_REQUEST, "id", student.getId(),
                                 "Usuario ya existe en BD");
                     } else {
                         return this.insertStudentOutputPort.insert(student)
                                 .onErrorResume(error -> {
                                     log.error("Error al insertar el estudiante 1: " + error.getMessage());
-                                    throw new InvalidFieldException(HttpStatus.CONFLICT, "id", student.getId(),
+                                    throw new UseCaseException(HttpStatus.CONFLICT, "id", student.getId(),
                                             error.getMessage());
                                 });
                     }
                 })
                 .onErrorResume(error -> {
                             log.error("Error al insertar el estudiante 2: " + error.getMessage());
-                            throw new InvalidFieldException(HttpStatus.CONFLICT, "id", student.getId(),
+                            throw new UseCaseException(HttpStatus.CONFLICT, "id", student.getId(),
                                     error.getMessage());
                         }
                 );

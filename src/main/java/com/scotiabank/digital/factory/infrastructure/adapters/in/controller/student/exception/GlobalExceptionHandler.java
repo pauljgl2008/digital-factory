@@ -29,16 +29,33 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return this.retrieveBadRequest(ex.getBindingResult().getFieldErrors());
     }
 
-    @ExceptionHandler(UseCaseException.class)
-    public final Mono<ResponseEntity<Object>> serviceExceptionHandler(final UseCaseException ex) {
+    @ExceptionHandler({RepositoryException.class, UseCaseException.class})
+    public final Mono<ResponseEntity<Object>> handleException(final RuntimeException ex) {
+        HttpStatus statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+        String fieldName = null;
+        String rejectedValue = null;
+
+        if (ex instanceof RepositoryException repositoryException) {
+            statusCode = HttpStatus.valueOf(((RepositoryException) ex).getStatusCode().value());
+            fieldName = repositoryException.getFieldName();
+            rejectedValue = repositoryException.getRejectedValue();
+        } else if (ex instanceof UseCaseException useCaseException) {
+            statusCode = HttpStatus.valueOf(((UseCaseException) ex).getStatusCode().value());
+            fieldName = useCaseException.getFieldName();
+            rejectedValue = useCaseException.getRejectedValue();
+        }
+
         GenericErrorResponseDto response = GenericErrorResponseDto.builder()
-                .status(ex.getStatusCode().value())
-                .error(HttpStatus.valueOf(ex.getStatusCode().value()).getReasonPhrase())
+                .status(statusCode.value())
+                .error(statusCode.getReasonPhrase())
                 .message(ex.getMessage())
-                .field(ex.getFieldName())
-                .rejectedValue(ex.getRejectedValue()).build();
-        return Mono.just(ResponseEntity.status(ex.getStatusCode()).body(response));
+                .field(fieldName)
+                .rejectedValue(rejectedValue)
+                .build();
+
+        return Mono.just(ResponseEntity.status(statusCode).body(response));
     }
+
 
     @ExceptionHandler(InvalidFieldException.class)
     public final Mono<ResponseEntity<Object>> invalidFieldExceptionHandler(final InvalidFieldException ex) {

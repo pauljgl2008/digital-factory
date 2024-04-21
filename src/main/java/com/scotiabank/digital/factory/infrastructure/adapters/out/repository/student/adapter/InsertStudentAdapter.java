@@ -3,6 +3,7 @@ package com.scotiabank.digital.factory.infrastructure.adapters.out.repository.st
 import com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.exception.InvalidFieldException;
 import com.scotiabank.digital.factory.domain.model.Student;
 import com.scotiabank.digital.factory.domain.ports.out.InsertStudentOutputPort;
+import com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.exception.RepositoryException;
 import com.scotiabank.digital.factory.infrastructure.adapters.out.repository.student.StudentCrudRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +24,8 @@ public class InsertStudentAdapter implements InsertStudentOutputPort {
                 .insertStudent(student.getId(), student.getNombre(), student.getApellido(), student.getEstado(), student.getEdad())
                 .then(Mono.just("Estudiante insertado exitosamente"))
                 .onErrorResume(error -> {
-                    log.error("Error al insertar el estudiante 0: " + error.getMessage());
-                    throw new InvalidFieldException(HttpStatus.CONFLICT, "id", student.getId(),
+                    log.error("RepositoryException insertStudent: " + error.getMessage());
+                    throw new RepositoryException(HttpStatus.CONFLICT, "id", student.getId(),
                             error.getMessage());
                 });
     }

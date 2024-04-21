@@ -5,6 +5,7 @@ import com.scotiabank.digital.factory.domain.ports.in.InsertStudentInputPort;
 import com.scotiabank.digital.factory.domain.ports.out.FindStudentByIdOutputPort;
 import com.scotiabank.digital.factory.domain.ports.out.InsertStudentOutputPort;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import reactor.core.publisher.Mono;
 
 @Slf4j
@@ -26,18 +27,22 @@ public class InsertStudentUseCase implements InsertStudentInputPort {
                 .hasElement()
                 .flatMap(studentExist -> {
                     if (studentExist) {
-                        return Mono.just("El estudiante ya existe en la base de datos");
+                        throw new InvalidFieldException(HttpStatus.BAD_REQUEST, "id", student.getId(),
+                                "Usuario ya existe en BD");
                     } else {
                         return this.insertStudentOutputPort.insert(student)
-                                .thenReturn("Estudiante insertado exitosamente")
                                 .onErrorResume(error -> {
-                                    log.error("Error al insertar el estudiante: " + error.getMessage());
-                                    return Mono.just("Error al insertar el estudiante: " + error.getMessage());
+                                    log.error("Error al insertar el estudiante 1: " + error.getMessage());
+                                    throw new InvalidFieldException(HttpStatus.CONFLICT, "id", student.getId(),
+                                            "Error al insertar el estudiante 1: ");
                                 });
                     }
                 })
                 .onErrorResume(error -> {
-                    return Mono.just("Error al procesar la inserción del estudiante");
-                });
+                            log.error("Error al insertar el estudiante 2: " + error.getMessage());
+                            throw new InvalidFieldException(HttpStatus.CONFLICT, "id", student.getId(),
+                                    "Error al insertar el estudiante 2: ");
+                        }
+                );
     }
 }

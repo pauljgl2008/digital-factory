@@ -40,4 +40,5 @@ public class StudentController {
         return this.insertStudentInputPort.insert(this.studentDtoMapper.toStudent(studentRequestDto))
                 .then(Mono.just(ResponseEntity.ok().build()));
     }
+
 }

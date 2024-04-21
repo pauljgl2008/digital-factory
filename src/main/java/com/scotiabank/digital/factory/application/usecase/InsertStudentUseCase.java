@@ -4,7 +4,9 @@ import com.scotiabank.digital.factory.domain.model.Student;
 import com.scotiabank.digital.factory.domain.ports.in.InsertStudentInputPort;
 import com.scotiabank.digital.factory.domain.ports.out.FindStudentByIdOutputPort;
 import com.scotiabank.digital.factory.domain.ports.out.InsertStudentOutputPort;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class InsertStudentUseCase implements InsertStudentInputPort {
 
     private final FindStudentByIdOutputPort findStudentByIdOutputPort;
@@ -22,10 +24,10 @@ public class InsertStudentUseCase implements InsertStudentInputPort {
         this.findStudentByIdOutputPort.findById(student.getId())
                 .hasElement()
                 .subscribe(studentExist -> {
-                    if (studentExist) {
-                        System.out.println("Existe el alumno en BD");
+                    if (studentExist.equals(true)) {
+                        log.debug("Existe el alumno en BD");
                     } else {
-                        System.out.println("Insertamos el student");
+                        log.debug("Insertamos el student");
                         this.insertStudentOutputPort.insert(student);
                     }
                 });

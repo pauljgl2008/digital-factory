@@ -1,7 +1,6 @@
 package com.scotiabank.digital.factory.application.usecase;
 
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 
 import java.io.Serial;

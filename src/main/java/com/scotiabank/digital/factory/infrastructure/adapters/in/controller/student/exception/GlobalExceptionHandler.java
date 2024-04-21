@@ -31,11 +31,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UseCaseException.class)
     public final Mono<ResponseEntity<Object>> serviceExceptionHandler(final UseCaseException ex) {
-        GenericErrorResponseDto response = new GenericErrorResponseDto(
-                ex.getStatusCode().value(),
-                HttpStatus.valueOf(ex.getStatusCode().value()).getReasonPhrase(),
-                ex.getMessage()
-        );
+        GenericErrorResponseDto response = GenericErrorResponseDto.builder()
+                .status(ex.getStatusCode().value())
+                .error(HttpStatus.valueOf(ex.getStatusCode().value()).getReasonPhrase())
+                .message(ex.getMessage())
+                .field(ex.getFieldName())
+                .rejectedValue(ex.getRejectedValue()).build();
         return Mono.just(ResponseEntity.status(ex.getStatusCode()).body(response));
     }
 

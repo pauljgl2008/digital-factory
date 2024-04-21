@@ -1,13 +1,15 @@
 package com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student;
 
 
-import com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.dto.StudentRequestDto;
-import com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.dto.StudentResponseDto;
+import com.scotiabank.digital.factory.application.usecase.MessageResponseDto;
 import com.scotiabank.digital.factory.domain.ports.in.GetAllStudentsInputPort;
 import com.scotiabank.digital.factory.domain.ports.in.InsertStudentInputPort;
+import com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.dto.StudentRequestDto;
+import com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.dto.StudentResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -36,10 +38,13 @@ public class StudentController {
     }
 
     @PostMapping
-    public Mono<ResponseEntity<Void>> insert(@Valid @RequestBody StudentRequestDto studentRequestDto) {
+    public Mono<ResponseEntity<MessageResponseDto>> insert(@Valid @RequestBody StudentRequestDto studentRequestDto) {
         log.info(studentRequestDto.toString());
-        return Mono.fromRunnable(() -> this.insertStudentInputPort
-                        .insert(this.studentDtoMapper.toStudent(studentRequestDto)))
-                .then(Mono.just(ResponseEntity.ok().build()));
+        return this.insertStudentInputPort.insert(this.studentDtoMapper.toStudent(studentRequestDto))
+                .map(message -> ResponseEntity.ok(message))
+                .onErrorResume(error -> {
+                    log.error("Error al insertar un estudiante: " + error.getMessage());
+                    return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponseDto("Error al insertar un estudiante")));
+                });
     }
 }

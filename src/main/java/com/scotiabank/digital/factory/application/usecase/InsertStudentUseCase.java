@@ -5,6 +5,7 @@ import com.scotiabank.digital.factory.domain.ports.in.InsertStudentInputPort;
 import com.scotiabank.digital.factory.domain.ports.out.FindStudentByIdOutputPort;
 import com.scotiabank.digital.factory.domain.ports.out.InsertStudentOutputPort;
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 public class InsertStudentUseCase implements InsertStudentInputPort {
@@ -20,16 +21,23 @@ public class InsertStudentUseCase implements InsertStudentInputPort {
     }
 
     @Override
-    public void insert(Student student) {
-        this.findStudentByIdOutputPort.findById(student.getId())
+    public Mono<MessageResponseDto> insert(Student student) {
+        return this.findStudentByIdOutputPort.findById(student.getId())
                 .hasElement()
-                .subscribe(studentExist -> {
-                    if (studentExist.equals(true)) {
-                        log.debug("Existe el alumno en BD");
+                .flatMap(studentExist -> {
+                    if (studentExist) {
+                        return Mono.just(new MessageResponseDto("El estudiante ya existe en la base de datos"));
                     } else {
-                        log.debug("Insertamos el student");
-                        this.insertStudentOutputPort.insert(student);
+                        return this.insertStudentOutputPort.insert(student)
+                                .thenReturn(new MessageResponseDto("Estudiante insertado exitosamente"))
+                                .onErrorResume(error -> {
+                                    log.error("Error al insertar el estudiante: " + error.getMessage());
+                                    return Mono.just(new MessageResponseDto("Error al insertar el estudiante: " + error.getMessage()));
+                                });
                     }
+                })
+                .onErrorResume(error -> {
+                    return Mono.just(new MessageResponseDto("Error al procesar la inserción del estudiante"));
                 });
     }
 }

@@ -6,6 +6,7 @@ import com.scotiabank.digital.factory.infrastructure.adapters.out.repository.stu
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 @Service
 @Slf4j
@@ -15,12 +16,14 @@ public class InsertStudentAdapter implements InsertStudentOutputPort {
     private final StudentCrudRepository studentCrudRepository;
 
     @Override
-    public void insert(Student student) {
-        this.studentCrudRepository
-                .insertStudent(student.getId(), student.getNombre(), student.getApellido(), student.getEstado(),
-                        student.getEdad())
-                .doOnError(error -> log.error("Error inserting student (message): " + error.getMessage()))
-                .subscribe();
+    public Mono<String> insert(Student student) {
+        return this.studentCrudRepository
+                .insertStudent(student.getId(), student.getNombre(), student.getApellido(), student.getEstado(), student.getEdad())
+                .then(Mono.just("Estudiante insertado exitosamente")) // Mensaje de éxito
+                .onErrorResume(error -> {
+                    log.error("Error al insertar el estudiante: " + error.getMessage());
+                    return Mono.just("Error al insertar el estudiante: " + error.getMessage()); // Mensaje de error
+                });
     }
 
 }

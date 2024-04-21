@@ -1,5 +1,6 @@
 package com.scotiabank.digital.factory.application.usecase;
 
+import com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.exception.InvalidFieldException;
 import com.scotiabank.digital.factory.domain.model.Student;
 import com.scotiabank.digital.factory.domain.ports.in.InsertStudentInputPort;
 import com.scotiabank.digital.factory.domain.ports.out.FindStudentByIdOutputPort;

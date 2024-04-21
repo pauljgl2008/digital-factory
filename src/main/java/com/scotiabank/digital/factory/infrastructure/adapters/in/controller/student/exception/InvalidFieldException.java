@@ -1,4 +1,4 @@
-package com.scotiabank.digital.factory.application.usecase;
+package com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatusCode;

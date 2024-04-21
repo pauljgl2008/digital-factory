@@ -1,5 +1,7 @@
-package com.scotiabank.digital.factory.application.usecase;
+package com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.exception;
 
+import com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.dto.ErrorDto;
+import com.scotiabank.digital.factory.infrastructure.adapters.in.controller.student.dto.ErrorResponseDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;

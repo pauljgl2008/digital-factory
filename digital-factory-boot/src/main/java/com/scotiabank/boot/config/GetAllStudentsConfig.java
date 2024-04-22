@@ -1,4 +1,4 @@
-package com.scotiabank.application.config;
+package com.scotiabank.boot.config;
 
 import com.scotiabank.application.usecase.GetAllStudentsUseCase;
 import com.scotiabank.infrastructure.adapters.out.repository.adapter.GetAllStudentsAdapter;

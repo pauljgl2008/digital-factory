@@ -1,4 +1,4 @@
-package com.scotiabank.application.config;
+package com.scotiabank.boot.config;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;

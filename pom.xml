@@ -18,7 +18,8 @@
 		<module>digital-factory-domain</module>
 		<module>digital-factory-infrastructure</module>
 		<module>digital-factory-application</module>
-	</modules>
+        <module>digital-factory-boot</module>
+    </modules>
 	<properties>
 		<java.version>21</java.version>
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
@@ -75,7 +76,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.scotiabank.application.DigitalFactoryApplication</mainClass>
+					<mainClass>com.scotiabank.boot.DigitalFactoryApplication</mainClass>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>

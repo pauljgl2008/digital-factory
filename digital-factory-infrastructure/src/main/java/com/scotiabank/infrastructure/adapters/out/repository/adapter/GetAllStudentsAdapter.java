@@ -20,6 +20,7 @@ public class GetAllStudentsAdapter implements GetAllStudentsOutputPort {
     @Override
     public Flux<Student> getAll() {
         return studentReactiveCrudRepository.findAll()
+                .filter(student -> student.getEstado() != null && student.getEstado())
                 .map(studentEntityMapper::toStudent);
     }
 

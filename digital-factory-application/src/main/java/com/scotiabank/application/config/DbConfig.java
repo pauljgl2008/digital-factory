@@ -11,7 +11,7 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
         includeFilters = @ComponentScan.Filter(
                 type = FilterType.REGEX,
                 pattern = ".*ReactiveCrudRepository"))
-@EntityScan("com.scotiabank.infrastructure.adapters.out.repository.entity")
+@EntityScan("com.scotiabanxk.infrastructure.adapters.out.repository.entity")
 public class DbConfig {
 
 }

@@ -1,6 +1,5 @@
 package com.scotiabank.infrastructure.adapters.in.controller;
 
-
 import com.scotiabank.domain.ports.in.GetAllStudentsInputPort;
 import com.scotiabank.domain.ports.in.InsertStudentInputPort;
 import com.scotiabank.infrastructure.adapters.in.controller.dto.StudentRequestDto;

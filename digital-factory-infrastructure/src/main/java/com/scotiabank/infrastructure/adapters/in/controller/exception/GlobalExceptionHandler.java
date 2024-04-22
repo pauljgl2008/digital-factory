@@ -1,8 +1,10 @@
-package com.scotiabank.application.exception;
+package com.scotiabank.infrastructure.adapters.in.controller.exception;
 
-import com.scotiabank.application.exception.dto.ErrorDto;
-import com.scotiabank.application.exception.dto.GenericErrorResponseDto;
-import com.scotiabank.application.exception.dto.InvalidFieldErrorResponseDto;
+import com.scotiabank.domain.exception.DuplicateIdException;
+import com.scotiabank.domain.exception.UseCaseException;
+import com.scotiabank.infrastructure.adapters.in.controller.exception.dto.ErrorDto;
+import com.scotiabank.infrastructure.adapters.in.controller.exception.dto.GenericErrorResponseDto;
+import com.scotiabank.infrastructure.adapters.in.controller.exception.dto.InvalidFieldErrorResponseDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -29,9 +31,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return this.retrieveBadRequest(ex.getBindingResult().getFieldErrors());
     }
 
-    @ExceptionHandler(UseCaseException.class)
-    public final Mono<ResponseEntity<Object>> handleException(final UseCaseException ex) {
-        return this.createErrorResponse(ex);
+    @ExceptionHandler(DuplicateIdException.class)
+    public final Mono<ResponseEntity<Object>> handleException(final DuplicateIdException ex) {
+        return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(ex.getMessage()));
     }
 
     private Mono<ResponseEntity<Object>> createErrorResponse(final UseCaseException ex) {

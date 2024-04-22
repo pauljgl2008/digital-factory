@@ -1,16 +1,16 @@
-package com.scotiabank.application.exception.dto;
+package com.scotiabank.infrastructure.adapters.in.controller.exception.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InvalidFieldErrorResponseDto {
+@Builder
+public class GenericErrorResponseDto {
 
     private int status;
 
@@ -18,6 +18,8 @@ public class InvalidFieldErrorResponseDto {
 
     private String message;
 
-    private List<ErrorDto> errors;
+    private String field;
+
+    private Object rejectedValue;
 
 }

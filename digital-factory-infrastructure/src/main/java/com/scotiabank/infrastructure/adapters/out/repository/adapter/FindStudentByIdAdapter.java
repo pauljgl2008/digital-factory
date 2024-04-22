@@ -5,10 +5,12 @@ import com.scotiabank.infrastructure.adapters.out.repository.StudentEntityMapper
 import com.scotiabank.domain.model.Student;
 import com.scotiabank.domain.ports.out.FindStudentByIdOutputPort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-@Service
+
+@Repository
 @RequiredArgsConstructor
 public class FindStudentByIdAdapter implements FindStudentByIdOutputPort {
 

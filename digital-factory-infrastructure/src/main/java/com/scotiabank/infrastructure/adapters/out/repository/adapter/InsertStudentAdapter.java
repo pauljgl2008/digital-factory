@@ -5,12 +5,12 @@ import com.scotiabank.domain.ports.out.InsertStudentOutputPort;
 import com.scotiabank.infrastructure.adapters.out.repository.StudentReactiveCrudRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
-@Service
 @Slf4j
 @RequiredArgsConstructor
+@Repository
 public class InsertStudentAdapter implements InsertStudentOutputPort {
 
     private final StudentReactiveCrudRepository studentReactiveCrudRepository;

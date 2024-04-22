@@ -6,10 +6,11 @@ import com.scotiabank.infrastructure.adapters.out.repository.StudentReactiveCrud
 import com.scotiabank.infrastructure.adapters.out.repository.StudentEntityMapper;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
-@Service
+@Repository
 @RequiredArgsConstructor
 public class GetAllStudentsAdapter implements GetAllStudentsOutputPort {
 

@@ -22,17 +22,14 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>digital-factory-domain</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>digital-factory-infrastructure</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>digital-factory-application</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
     <build>

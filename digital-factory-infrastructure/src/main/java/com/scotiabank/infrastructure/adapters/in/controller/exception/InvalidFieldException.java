@@ -1,4 +1,4 @@
-package com.scotiabank.application.exception;
+package com.scotiabank.infrastructure.adapters.in.controller.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatusCode;

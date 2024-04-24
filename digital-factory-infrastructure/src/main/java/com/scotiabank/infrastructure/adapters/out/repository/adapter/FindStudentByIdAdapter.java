@@ -1,12 +1,11 @@
 package com.scotiabank.infrastructure.adapters.out.repository.adapter;
 
-import com.scotiabank.infrastructure.adapters.out.repository.StudentReactiveCrudRepository;
-import com.scotiabank.infrastructure.adapters.out.repository.StudentEntityMapper;
 import com.scotiabank.domain.model.Student;
 import com.scotiabank.domain.ports.out.FindStudentByIdOutputPort;
+import com.scotiabank.infrastructure.adapters.out.repository.StudentEntityMapper;
+import com.scotiabank.infrastructure.adapters.out.repository.StudentReactiveCrudRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 

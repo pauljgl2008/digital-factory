@@ -1,10 +1,15 @@
 package com.scotiabank.domain.exception;
 
+import lombok.Data;
+import org.springframework.http.HttpStatus;
+
+@Data
 public class DuplicateIdException extends Exception {
 
-    private static final String DETAIL_FORMAT = "El id %s ya está registrado";
+    private final HttpStatus status;
 
-    public DuplicateIdException(final String id) {
-        super(String.format(DETAIL_FORMAT, id));
+    public DuplicateIdException(final HttpStatus status, final String message) {
+        super(message);
+        this.status = status;
     }
 }

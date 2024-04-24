@@ -7,16 +7,17 @@ import com.scotiabank.domain.ports.in.InsertStudentInputPort;
 import com.scotiabank.domain.ports.out.FindStudentByIdOutputPort;
 import com.scotiabank.domain.ports.out.InsertStudentOutputPort;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import reactor.core.publisher.Mono;
 
 @Slf4j
-public class InsertStudentUseCase implements InsertStudentInputPort {
+public class InsertStudentUseCaseImpl implements InsertStudentInputPort {
     private final FindStudentByIdOutputPort findStudentByIdOutputPort;
 
     private final InsertStudentOutputPort insertStudentOutputPort;
 
-    public InsertStudentUseCase(FindStudentByIdOutputPort findStudentByIdOutputPort,
-                                InsertStudentOutputPort insertStudentOutputPort) {
+    public InsertStudentUseCaseImpl(FindStudentByIdOutputPort findStudentByIdOutputPort,
+                                    InsertStudentOutputPort insertStudentOutputPort) {
         this.findStudentByIdOutputPort = findStudentByIdOutputPort;
         this.insertStudentOutputPort = insertStudentOutputPort;
     }
@@ -27,15 +28,15 @@ public class InsertStudentUseCase implements InsertStudentInputPort {
                 .hasElement()
                 .flatMap(studentExist -> {
                     if (studentExist.equals(true)) {
-                        return Mono.error(new DuplicateIdException(student.getId()));
+                        return Mono.error(new DuplicateIdException(HttpStatus.BAD_REQUEST, String.format("El id %s ya está registrado", student.getId())));
                     } else {
-                        this.insertStudentOutputPort.insert(student)
+                        return this.insertStudentOutputPort.insert(student)
+                                .thenReturn("Alumno insertado exitosamente")
                                 .onErrorResume(error -> {
                                     log.error(error.getMessage());
-                                    throw new ApplicationRuntimeException("Error en la inserción del alumno");
+                                    return Mono.error(new ApplicationRuntimeException("Error en la inserción del alumno"));
                                 });
                     }
-                    return Mono.empty();
                 });
     }
 }

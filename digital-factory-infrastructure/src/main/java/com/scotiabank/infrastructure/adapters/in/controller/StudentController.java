@@ -36,7 +36,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public Mono<ResponseEntity<Void>> insert(@Valid @RequestBody StudentRequestDto studentRequestDto) throws DuplicateIdException {
+    public Mono<ResponseEntity<Object>> insert(@Valid @RequestBody StudentRequestDto studentRequestDto) {
         return this.insertStudentInputPort.insert(this.studentDtoMapper.toStudent(studentRequestDto))
                 .then(Mono.just(ResponseEntity.ok().build()));
     }

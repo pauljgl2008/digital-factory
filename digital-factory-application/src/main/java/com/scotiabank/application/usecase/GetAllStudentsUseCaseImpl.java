@@ -5,11 +5,11 @@ import com.scotiabank.domain.ports.in.GetAllStudentsInputPort;
 import com.scotiabank.domain.ports.out.GetAllStudentsOutputPort;
 import reactor.core.publisher.Flux;
 
-public class GetAllStudentsUseCase implements GetAllStudentsInputPort {
+public class GetAllStudentsUseCaseImpl implements GetAllStudentsInputPort {
 
     private final GetAllStudentsOutputPort getAllStudentsOutputPort;
 
-    public GetAllStudentsUseCase(GetAllStudentsOutputPort getAllStudentsOutputPort) {
+    public GetAllStudentsUseCaseImpl(GetAllStudentsOutputPort getAllStudentsOutputPort) {
         this.getAllStudentsOutputPort = getAllStudentsOutputPort;
     }
 

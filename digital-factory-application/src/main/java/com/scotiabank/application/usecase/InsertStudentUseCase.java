@@ -1,12 +1,15 @@
 package com.scotiabank.application.usecase;
 
-import com.scotiabank.domain.exception.ApplicationRuntimeException;
-import com.scotiabank.domain.exception.DuplicateIdException;
+import com.scotiabank.domain.exception.InvalidFieldException;
+import com.scotiabank.domain.exception.StudentCreationConflictException;
+import com.scotiabank.domain.exception.StudentIdAlreadyExistsException;
+import com.scotiabank.domain.exception.ValidationConstants;
 import com.scotiabank.domain.model.Student;
 import com.scotiabank.domain.ports.in.InsertStudentInputPort;
 import com.scotiabank.domain.ports.out.FindStudentByIdOutputPort;
 import com.scotiabank.domain.ports.out.InsertStudentOutputPort;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import reactor.core.publisher.Mono;
 
 @Slf4j
@@ -22,20 +25,21 @@ public class InsertStudentUseCase implements InsertStudentInputPort {
     }
 
     @Override
-    public Mono<String> insert(Student student) {
+    public Mono<Void> insert(Student student) {
         return this.findStudentByIdOutputPort.findById(student.getId())
                 .hasElement()
                 .flatMap(studentExist -> {
                     if (studentExist.equals(true)) {
-                        return Mono.error(new DuplicateIdException(student.getId()));
+                        return Mono.error(new StudentIdAlreadyExistsException(HttpStatus.BAD_REQUEST, "id", student.getId(),
+                                ValidationConstants.STUDENT_ID_EXISTS_MESSAGE));
                     } else {
-                        this.insertStudentOutputPort.insert(student)
+                        return this.insertStudentOutputPort.insert(student)
                                 .onErrorResume(error -> {
                                     log.error(error.getMessage());
-                                    throw new ApplicationRuntimeException("Error en la inserción del alumno");
+                                    return Mono.error(new StudentCreationConflictException(HttpStatus.CONFLICT, "id", student.getId(),
+                                            ValidationConstants.INSERT_STUDENT_ERROR_MESSAGE));
                                 });
                     }
-                    return Mono.empty();
                 });
     }
 }

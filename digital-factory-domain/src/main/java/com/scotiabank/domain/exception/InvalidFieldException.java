@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatusCode;
 import java.io.Serial;
 
 @Getter
-public class UseCaseException extends RuntimeException {
+public class InvalidFieldException extends RuntimeException {
 
     @Serial
     private static final long serialVersionUID = 39348712723127893L;
@@ -17,11 +17,11 @@ public class UseCaseException extends RuntimeException {
 
     private final String rejectedValue;
 
-
-    public UseCaseException(final HttpStatusCode statusCode, final String fieldName, final String rejectedValue, final String message) {
+    public InvalidFieldException(final HttpStatusCode statusCode, final String fieldName, final String rejectedValue, final String message) {
         super(message);
         this.fieldName = fieldName;
         this.rejectedValue = rejectedValue;
         this.statusCode = statusCode;
     }
+
 }

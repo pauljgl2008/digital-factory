@@ -1,6 +1,5 @@
 package com.scotiabank.infrastructure.adapters.in.controller;
 
-import com.scotiabank.domain.exception.DuplicateIdException;
 import com.scotiabank.domain.ports.in.GetAllStudentsInputPort;
 import com.scotiabank.domain.ports.in.InsertStudentInputPort;
 import com.scotiabank.infrastructure.adapters.in.controller.dto.StudentRequestDto;
@@ -36,7 +35,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public Mono<ResponseEntity<Void>> insert(@Valid @RequestBody StudentRequestDto studentRequestDto) throws DuplicateIdException {
+    public Mono<ResponseEntity<Void>> insert(@Valid @RequestBody StudentRequestDto studentRequestDto) {
         return this.insertStudentInputPort.insert(this.studentDtoMapper.toStudent(studentRequestDto))
                 .then(Mono.just(ResponseEntity.ok().build()));
     }

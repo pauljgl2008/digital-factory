@@ -11,7 +11,7 @@ public class StudentResponseDto {
 
     private String apellido;
 
-    private Boolean estado;
+    private String estado;
 
     private Integer edad;
 }

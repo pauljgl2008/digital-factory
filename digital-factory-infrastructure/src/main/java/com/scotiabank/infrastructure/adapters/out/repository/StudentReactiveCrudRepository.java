@@ -9,6 +9,6 @@ import reactor.core.publisher.Mono;
 public interface StudentReactiveCrudRepository extends ReactiveCrudRepository<StudentEntity, String> {
 
     @Query(StudentSQLQueries.QUERY_INSERT)
-    Mono<Void> insertStudent(String id, String nombre, String apellido, Boolean estado, Integer edad);
+    Mono<Void> insertStudent(String id, String nombre, String apellido, String estado, Integer edad);
 
 }

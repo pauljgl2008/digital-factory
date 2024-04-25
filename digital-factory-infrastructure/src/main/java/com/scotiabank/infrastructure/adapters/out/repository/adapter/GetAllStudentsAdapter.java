@@ -1,9 +1,10 @@
 package com.scotiabank.infrastructure.adapters.out.repository.adapter;
 
+import com.scotiabank.domain.model.Status;
 import com.scotiabank.domain.model.Student;
 import com.scotiabank.domain.ports.out.GetAllStudentsOutputPort;
-import com.scotiabank.infrastructure.adapters.out.repository.mapper.StudentEntityMapper;
 import com.scotiabank.infrastructure.adapters.out.repository.StudentReactiveCrudRepository;
+import com.scotiabank.infrastructure.adapters.out.repository.mapper.StudentEntityMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
@@ -19,7 +20,7 @@ public class GetAllStudentsAdapter implements GetAllStudentsOutputPort {
     @Override
     public Flux<Student> getAll() {
         return studentReactiveCrudRepository.findAll()
-                .filter(student -> student.getEstado() != null && student.getEstado())
+                .filter(student -> Status.ACTIVE.getValor().equals(student.getEstado()))
                 .map(studentEntityMapper::toStudent);
     }
 

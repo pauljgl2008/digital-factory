@@ -17,7 +17,7 @@ public class StudentEntity {
 
     private String apellido;
 
-    private Boolean estado;
+    private String estado;
 
     private Integer edad;
 

@@ -19,7 +19,7 @@ public class StudentRequestDto {
     private String apellido;
 
     @NotNull(message = "El campo estado es requerido")
-    private Boolean estado;
+    private String estado;
 
     @NotNull(message = "El campo edad es requerido")
     @Min(value = 0, message = "El campo edad debe ser mayor o igual a 0")

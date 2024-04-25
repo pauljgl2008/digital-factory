@@ -3,6 +3,7 @@ package com.scotiabank.infrastructure.adapters.in.controller.exception;
 import com.scotiabank.domain.exception.StudentCreationConflictException;
 import com.scotiabank.domain.exception.StudentIdAlreadyExistsException;
 import com.scotiabank.domain.common.ErrorConstants;
+import com.scotiabank.domain.exception.StudentStatusException;
 import com.scotiabank.infrastructure.adapters.in.controller.exception.dto.ErrorDto;
 import com.scotiabank.infrastructure.adapters.in.controller.exception.dto.ErrorResponseDto;
 import org.springframework.http.HttpHeaders;
@@ -28,7 +29,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                                           @NonNull final HttpHeaders headers,
                                                                           @NonNull final HttpStatusCode status,
                                                                           @NonNull final ServerWebExchange exchange) {
-        return this.retrieveBadRequest(HttpStatus.BAD_REQUEST, "Validation Failed", ex.getBindingResult().getFieldErrors());
+        return this.retrieveBadRequest(HttpStatus.BAD_REQUEST, ErrorConstants.INVALID_FIELD_ERROR_MESSAGE, ex.getBindingResult().getFieldErrors());
     }
 
     @ExceptionHandler(StudentIdAlreadyExistsException.class)
@@ -39,6 +40,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(StudentCreationConflictException.class)
     public final Mono<ResponseEntity<Object>> handleException(final StudentCreationConflictException ex) {
         return this.retrieveBadRequest(ex.getStatusCode(), ErrorConstants.STUDENT_INSERTION_ERROR_MESSAGE, List.of(this.buildFieldError(ex.getFieldName(), ex.getRejectedValue(), ex.getMessage())));
+    }
+    @ExceptionHandler(StudentStatusException.class)
+    public final Mono<ResponseEntity<Object>> handleException(final StudentStatusException ex) {
+        return this.retrieveBadRequest(ex.getStatusCode(), ErrorConstants.INVALID_FIELD_ERROR_MESSAGE, List.of(this.buildFieldError(ex.getFieldName(), ex.getRejectedValue(), ex.getMessage())));
     }
 
     private Mono<ResponseEntity<Object>> retrieveBadRequest(HttpStatusCode status, String type, List<FieldError> fieldErrors) {

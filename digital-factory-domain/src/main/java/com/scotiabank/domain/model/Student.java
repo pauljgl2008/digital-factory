@@ -11,8 +11,15 @@ public class Student {
 
     private String apellido;
 
-    private Boolean estado;
+    private Status estado;
 
     private Integer edad;
+
+    public void setEstado(Status estado) {
+        if (estado != Status.ACTIVE && estado != Status.INACTIVE) {
+            throw new IllegalArgumentException("El estado debe ser 'activo' o 'inactivo'");
+        }
+        this.estado = estado;
+    }
 
 }

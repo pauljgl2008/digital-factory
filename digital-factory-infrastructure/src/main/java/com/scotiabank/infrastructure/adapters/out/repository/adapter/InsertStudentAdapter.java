@@ -18,7 +18,7 @@ public class InsertStudentAdapter implements InsertStudentOutputPort {
     @Override
     public Mono<Void> insert(Student student) {
         return this.studentReactiveCrudRepository.insertStudent(student.getId(), student.getNombre(), student.getApellido(),
-                student.getEstado(), student.getEdad());
+                student.getEstado().getValor(), student.getEdad());
     }
 
 }

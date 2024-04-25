@@ -1,5 +1,6 @@
 package com.scotiabank.application.usecase;
 
+import com.scotiabank.domain.model.Status;
 import com.scotiabank.domain.model.Student;
 import com.scotiabank.domain.ports.in.GetAllStudentsInputPort;
 import com.scotiabank.domain.ports.out.GetAllStudentsOutputPort;
@@ -15,7 +16,8 @@ public class GetAllStudentsUseCase implements GetAllStudentsInputPort {
 
     @Override
     public Flux<Student> getAll() {
-        return this.getAllStudentsOutputPort.getAll();
+        return this.getAllStudentsOutputPort.getAll()
+                .filter(student -> Status.ACTIVE.getValor().equals(student.getEstado().getValor()));
     }
 
 }

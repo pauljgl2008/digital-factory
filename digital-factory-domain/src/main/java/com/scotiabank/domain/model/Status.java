@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+import static com.scotiabank.domain.common.ValidationConstants.INVALID_STUDENT_STATUS_MESSAGE;
+import static com.scotiabank.domain.common.ValidationConstants.STUDENT_STATUS_FIELD;
+
 @AllArgsConstructor
 @Getter
 public enum Status {
@@ -21,6 +24,8 @@ public enum Status {
                 return status;
             }
         }
-        throw new StudentStatusException(HttpStatus.BAD_REQUEST, "estado", valor, "El estado solo puede ser 'activo' o 'inactivo'");
+        throw new StudentStatusException(HttpStatus.BAD_REQUEST, STUDENT_STATUS_FIELD, valor,
+                INVALID_STUDENT_STATUS_MESSAGE);
     }
+
 }

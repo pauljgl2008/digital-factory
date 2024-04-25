@@ -1,6 +1,5 @@
 package com.scotiabank.infrastructure.adapters.out.repository.adapter;
 
-import com.scotiabank.domain.model.Status;
 import com.scotiabank.domain.model.Student;
 import com.scotiabank.domain.ports.out.GetAllStudentsOutputPort;
 import com.scotiabank.infrastructure.adapters.out.repository.StudentReactiveCrudRepository;
@@ -20,7 +19,6 @@ public class GetAllStudentsAdapter implements GetAllStudentsOutputPort {
     @Override
     public Flux<Student> getAll() {
         return studentReactiveCrudRepository.findAll()
-                .filter(student -> Status.ACTIVE.getValor().equals(student.getEstado()))
                 .map(studentEntityMapper::toStudent);
     }
 

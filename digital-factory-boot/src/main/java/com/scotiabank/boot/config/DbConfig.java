@@ -6,11 +6,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
+/**
+ * Configuración de la base de datos.
+ */
 @Configuration
-@EnableR2dbcRepositories(basePackages = "com.scotiabank.infrastructure.adapters.out.repository",
+@EnableR2dbcRepositories(
+        basePackages = "com.scotiabank.infrastructure.adapters.out.repository",
         includeFilters = @ComponentScan.Filter(
                 type = FilterType.REGEX,
-                pattern = ".*ReactiveCrudRepository"))
+                pattern = ".*ReactiveCrudRepository")
+)
 @EntityScan("com.scotiabanxk.infrastructure.adapters.out.repository.entity")
 public class DbConfig {
 

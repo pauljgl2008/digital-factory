@@ -16,4 +16,5 @@ public class StudentResponseDto {
     private String estado;
 
     private Integer edad;
+
 }

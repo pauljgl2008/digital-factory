@@ -7,9 +7,9 @@ import lombok.Setter;
 import java.util.List;
 
 
+@AllArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
 public class ErrorResponseDto {
 
     private int status;

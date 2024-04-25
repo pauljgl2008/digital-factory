@@ -1,12 +1,12 @@
 package com.scotiabank.infrastructure.adapters.in.controller.exception.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class ErrorDto {
 
     private String field;

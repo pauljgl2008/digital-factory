@@ -1,9 +1,11 @@
 package com.scotiabank.infrastructure.adapters.in.controller.dto;
 
 import jakarta.validation.constraints.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class StudentRequestDto {
 
     @NotBlank(message = "El campo id es requerido")

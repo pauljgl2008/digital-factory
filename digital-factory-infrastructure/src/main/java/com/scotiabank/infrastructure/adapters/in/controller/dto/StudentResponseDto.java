@@ -1,8 +1,10 @@
 package com.scotiabank.infrastructure.adapters.in.controller.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class StudentResponseDto {
 
     private String id;

@@ -15,11 +15,4 @@ public class Student {
 
     private Integer edad;
 
-    public void setEstado(Status estado) {
-        if (estado != Status.ACTIVE && estado != Status.INACTIVE) {
-            throw new IllegalArgumentException("El estado debe ser 'activo' o 'inactivo'");
-        }
-        this.estado = estado;
-    }
-
 }

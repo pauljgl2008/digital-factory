@@ -2,11 +2,10 @@ package com.scotiabank.infrastructure.adapters.in.controller.mapper;
 
 
 import com.scotiabank.domain.model.Status;
+import com.scotiabank.domain.model.Student;
 import com.scotiabank.infrastructure.adapters.in.controller.dto.StudentRequestDto;
 import com.scotiabank.infrastructure.adapters.in.controller.dto.StudentResponseDto;
-import com.scotiabank.domain.model.Student;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface StudentDtoMapper {

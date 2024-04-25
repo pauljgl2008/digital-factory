@@ -1,4 +1,4 @@
-package com.scotiabank.domain.exception;
+package com.scotiabank.domain.common;
 
 import lombok.experimental.UtilityClass;
 

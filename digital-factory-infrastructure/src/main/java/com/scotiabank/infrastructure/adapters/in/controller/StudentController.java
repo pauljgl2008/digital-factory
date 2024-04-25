@@ -4,6 +4,7 @@ import com.scotiabank.domain.ports.in.GetAllStudentsInputPort;
 import com.scotiabank.domain.ports.in.InsertStudentInputPort;
 import com.scotiabank.infrastructure.adapters.in.controller.dto.StudentRequestDto;
 import com.scotiabank.infrastructure.adapters.in.controller.dto.StudentResponseDto;
+import com.scotiabank.infrastructure.adapters.in.controller.mapper.StudentDtoMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

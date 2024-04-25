@@ -1,4 +1,4 @@
-package com.scotiabank.infrastructure.adapters.out.repository;
+package com.scotiabank.infrastructure.adapters.out.repository.mapper;
 
 
 import com.scotiabank.infrastructure.adapters.out.repository.entity.StudentEntity;

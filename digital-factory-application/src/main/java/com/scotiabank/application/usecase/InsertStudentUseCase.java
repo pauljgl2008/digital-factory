@@ -1,13 +1,13 @@
 package com.scotiabank.application.usecase;
 
-import com.scotiabank.domain.exception.ErrorConstants;
 import com.scotiabank.domain.exception.StudentCreationConflictException;
 import com.scotiabank.domain.exception.StudentIdAlreadyExistsException;
-import com.scotiabank.domain.exception.ValidationConstants;
 import com.scotiabank.domain.model.Student;
 import com.scotiabank.domain.ports.in.InsertStudentInputPort;
 import com.scotiabank.domain.ports.out.FindStudentByIdOutputPort;
 import com.scotiabank.domain.ports.out.InsertStudentOutputPort;
+import com.scotiabank.domain.common.ErrorConstants;
+import com.scotiabank.domain.common.ValidationConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import reactor.core.publisher.Mono;
@@ -40,7 +40,7 @@ public class InsertStudentUseCase implements InsertStudentInputPort {
                                             student.getId(), error.getMessage()));
                                     return Mono.error(new StudentCreationConflictException(HttpStatus.CONFLICT,
                                             ValidationConstants.STUDENT_ID_FIELD, student.getId(),
-                                            ErrorConstants.STUDENT_INSERTION_ERROR_MESSAGE
+                                            ErrorConstants.STUDENT_INSERTION_CONFLICT_ERROR_MESSAGE
                                     ));
                                 });
                     }

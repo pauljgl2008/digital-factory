@@ -18,6 +18,6 @@ public class ErrorResponseDto {
 
     private String message;
 
-    private List<ErrorDto> errors;
+    private List<ErrorDto> details;
 
 }

@@ -2,6 +2,7 @@ package com.scotiabank.infrastructure.adapters.in.controller.exception;
 
 import com.scotiabank.domain.exception.StudentCreationConflictException;
 import com.scotiabank.domain.exception.StudentIdAlreadyExistsException;
+import com.scotiabank.domain.common.ErrorConstants;
 import com.scotiabank.infrastructure.adapters.in.controller.exception.dto.ErrorDto;
 import com.scotiabank.infrastructure.adapters.in.controller.exception.dto.ErrorResponseDto;
 import org.springframework.http.HttpHeaders;
@@ -32,11 +33,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(StudentIdAlreadyExistsException.class)
     public final Mono<ResponseEntity<Object>> handleException(final StudentIdAlreadyExistsException ex) {
-        return this.retrieveBadRequest(ex.getStatusCode(), "StudentIdAlreadyExistsException", List.of(this.buildFieldError(ex.getFieldName(), ex.getRejectedValue(), ex.getMessage())));
+        return this.retrieveBadRequest(ex.getStatusCode(), ErrorConstants.STUDENT_INSERTION_ERROR_MESSAGE, List.of(this.buildFieldError(ex.getFieldName(), ex.getRejectedValue(), ex.getMessage())));
     }
+
     @ExceptionHandler(StudentCreationConflictException.class)
     public final Mono<ResponseEntity<Object>> handleException(final StudentCreationConflictException ex) {
-        return this.retrieveBadRequest(ex.getStatusCode(), "StudentCreationConflictException", List.of(this.buildFieldError(ex.getFieldName(), ex.getRejectedValue(), ex.getMessage())));
+        return this.retrieveBadRequest(ex.getStatusCode(), ErrorConstants.STUDENT_INSERTION_ERROR_MESSAGE, List.of(this.buildFieldError(ex.getFieldName(), ex.getRejectedValue(), ex.getMessage())));
     }
 
     private Mono<ResponseEntity<Object>> retrieveBadRequest(HttpStatusCode status, String type, List<FieldError> fieldErrors) {

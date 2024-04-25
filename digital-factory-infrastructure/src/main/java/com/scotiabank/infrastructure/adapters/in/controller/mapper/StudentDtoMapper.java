@@ -1,4 +1,4 @@
-package com.scotiabank.infrastructure.adapters.in.controller;
+package com.scotiabank.infrastructure.adapters.in.controller.mapper;
 
 
 import com.scotiabank.infrastructure.adapters.in.controller.dto.StudentRequestDto;

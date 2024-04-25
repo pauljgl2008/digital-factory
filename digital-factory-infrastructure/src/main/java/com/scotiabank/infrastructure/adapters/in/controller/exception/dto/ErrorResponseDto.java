@@ -1,16 +1,16 @@
 package com.scotiabank.infrastructure.adapters.in.controller.exception.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class GenericErrorResponseDto {
+public class ErrorResponseDto {
 
     private int status;
 
@@ -18,8 +18,6 @@ public class GenericErrorResponseDto {
 
     private String message;
 
-    private String field;
-
-    private Object rejectedValue;
+    private List<ErrorDto> errors;
 
 }

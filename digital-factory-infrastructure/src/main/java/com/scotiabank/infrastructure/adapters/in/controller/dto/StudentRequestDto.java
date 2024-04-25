@@ -11,7 +11,7 @@ public class StudentRequestDto {
     private String id;
 
     @NotBlank(message = "El campo nombre es requerido")
-    @Size(max = 10, message = "El campo nombre no debe exceder los 10 caracteres")
+    @Size(max = 15, message = "El campo nombre no debe exceder los 10 caracteres")
     private String nombre;
 
     @NotBlank(message = "El campo apellido es requerido")

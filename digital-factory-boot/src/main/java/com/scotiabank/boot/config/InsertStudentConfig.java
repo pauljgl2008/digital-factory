@@ -1,6 +1,6 @@
 package com.scotiabank.boot.config;
 
-import com.scotiabank.application.usecase.InsertStudentUseCaseImpl;
+import com.scotiabank.application.usecase.InsertStudentUseCase;
 import com.scotiabank.infrastructure.adapters.out.repository.adapter.InsertStudentAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,9 +9,9 @@ import com.scotiabank.infrastructure.adapters.out.repository.adapter.FindStudent
 public class InsertStudentConfig {
 
     @Bean
-    public InsertStudentUseCaseImpl insertStudentUseCase(FindStudentByIdAdapter findStudentByIdAdapter,
-                                                         InsertStudentAdapter insertStudentAdapter) {
-        return new InsertStudentUseCaseImpl(findStudentByIdAdapter, insertStudentAdapter);
+    public InsertStudentUseCase insertStudentUseCase(FindStudentByIdAdapter findStudentByIdAdapter,
+                                                     InsertStudentAdapter insertStudentAdapter) {
+        return new InsertStudentUseCase(findStudentByIdAdapter, insertStudentAdapter);
     }
 
 }

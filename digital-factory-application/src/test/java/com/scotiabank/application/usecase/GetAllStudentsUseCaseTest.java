@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("GetAllStudentsUseCase Tests")
-public class GetAllStudentsUseCaseTest {
+class GetAllStudentsUseCaseTest {
 
     @InjectMocks
     private GetAllStudentsUseCase getAllStudentsUseCase;

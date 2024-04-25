@@ -20,7 +20,7 @@ import static com.scotiabank.domain.common.ValidationConstants.STUDENT_ID_FIELD;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class InsertStudentUseCaseTest {
+class InsertStudentUseCaseTest {
 
     @Mock
     private FindStudentByIdOutputPort findStudentByIdOutputPort;

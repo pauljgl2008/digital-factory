@@ -1,6 +1,6 @@
 package com.scotiabank.application.usecase;
 
-import com.scotiabank.domain.exception.InvalidFieldException;
+import com.scotiabank.domain.exception.ErrorConstants;
 import com.scotiabank.domain.exception.StudentCreationConflictException;
 import com.scotiabank.domain.exception.StudentIdAlreadyExistsException;
 import com.scotiabank.domain.exception.ValidationConstants;
@@ -30,14 +30,18 @@ public class InsertStudentUseCase implements InsertStudentInputPort {
                 .hasElement()
                 .flatMap(studentExist -> {
                     if (studentExist.equals(true)) {
-                        return Mono.error(new StudentIdAlreadyExistsException(HttpStatus.BAD_REQUEST, "id", student.getId(),
-                                ValidationConstants.STUDENT_ID_EXISTS_MESSAGE));
+                        return Mono.error(new StudentIdAlreadyExistsException(HttpStatus.BAD_REQUEST,
+                                ValidationConstants.STUDENT_ID_FIELD, student.getId(),
+                                ValidationConstants.STUDENT_ID_ALREADY_EXISTS_MESSAGE));
                     } else {
                         return this.insertStudentOutputPort.insert(student)
                                 .onErrorResume(error -> {
-                                    log.error(error.getMessage());
-                                    return Mono.error(new StudentCreationConflictException(HttpStatus.CONFLICT, "id", student.getId(),
-                                            ValidationConstants.INSERT_STUDENT_ERROR_MESSAGE));
+                                    log.error(String.format(ErrorConstants.STUDENT_INSERTION_ERROR_FORMAT,
+                                            student.getId(), error.getMessage()));
+                                    return Mono.error(new StudentCreationConflictException(HttpStatus.CONFLICT,
+                                            ValidationConstants.STUDENT_ID_FIELD, student.getId(),
+                                            ErrorConstants.STUDENT_INSERTION_ERROR_MESSAGE
+                                    ));
                                 });
                     }
                 });

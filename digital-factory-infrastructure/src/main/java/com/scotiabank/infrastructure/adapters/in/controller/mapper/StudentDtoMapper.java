@@ -14,11 +14,11 @@ public interface StudentDtoMapper {
     Student toStudent(StudentRequestDto studentRequestDto);
 
     default Status toStatusEnum(String estado) {
-        return Status.fromValor(estado.toLowerCase());
+        return Status.fromValor(estado);
     }
 
     default String fromStatusEnum(Status estado) {
-        return estado.getValor().toLowerCase();
+        return estado.getValor();
     }
 
     StudentResponseDto toStudentResponse(Student student);

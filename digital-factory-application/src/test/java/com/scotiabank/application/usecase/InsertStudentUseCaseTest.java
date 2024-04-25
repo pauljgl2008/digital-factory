@@ -6,7 +6,6 @@ import com.scotiabank.domain.model.Status;
 import com.scotiabank.domain.model.Student;
 import com.scotiabank.domain.ports.out.FindStudentByIdOutputPort;
 import com.scotiabank.domain.ports.out.InsertStudentOutputPort;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,10 +17,10 @@ import reactor.test.StepVerifier;
 
 import static com.scotiabank.domain.common.ErrorConstants.STUDENT_INSERTION_CONFLICT_ERROR_MESSAGE;
 import static com.scotiabank.domain.common.ValidationConstants.STUDENT_ID_FIELD;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class InsertStudentUseCaseTest {
+public class InsertStudentUseCaseTest {
 
     @Mock
     private FindStudentByIdOutputPort findStudentByIdOutputPort;

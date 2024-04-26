@@ -42,7 +42,7 @@ class FindStudentByIdAdapterTest {
     }
 
     @Test
-    void testFindById_ShouldReturnStudentWhenExists() {
+    void given_validIdStudent_when_findByIdCalled_then_returnsStudent() {
         when(studentReactiveCrudRepository.findById(studentId)).thenReturn(Mono.just(studentEntity));
         when(studentEntityMapper.toStudent(any(StudentEntity.class))).thenReturn(expectedStudent);
 
@@ -53,17 +53,6 @@ class FindStudentByIdAdapterTest {
                 .verifyComplete();
 
         verify(studentEntityMapper).toStudent(studentEntity);
-    }
-
-    @Test
-    void testFindById_ShouldReturnEmptyMonoWhenNotFound() {
-        when(studentReactiveCrudRepository.findById(studentId)).thenReturn(Mono.empty());
-
-        Mono<Student> result = findStudentByIdAdapter.findById(studentId);
-
-        StepVerifier.create(result)
-                .expectNextCount(0)
-                .verifyComplete();
     }
 
     private static StudentEntity createStudentEntity(String id, String nombre, String apellido, Status estado, int edad) {

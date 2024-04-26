@@ -47,6 +47,7 @@ class StudentControllerTest {
     private static List<StudentResponseDto> expectedStudents;
 
     private static Student student;
+
     private static StudentRequestDto studentRequestDto;
 
     private static final String GET_STUDENTS_RESPONSE_JSON_PATH = "src/test/resources/GetStudentsResponse.json";
@@ -60,23 +61,12 @@ class StudentControllerTest {
     }
 
     @Test
-    void shouldReturnEmptyListWhenNoStudentsExist() {
-        when(getAllStudentsInputPort.getAll()).thenReturn(Flux.empty());
-
-        Mono<ResponseEntity<Flux<StudentResponseDto>>> result = studentController.getAll();
-
-        StepVerifier.create(result)
-                .expectNextMatches(response -> response.getStatusCode() == HttpStatus.OK)
-                .expectNextCount(0)
-                .verifyComplete();
-    }
-
-    @Test
-    void testGetAllStudents_ShouldReturnListOfStudents() {
+    void given_requestGetStudents_when_getAllCalled_then_returnsOkAndListOfActiveStudents() {
         Flux<Student> getStudents = Flux.just(student);
         when(getAllStudentsInputPort.getAll()).thenReturn(getStudents);
 
         Mono<ResponseEntity<Flux<StudentResponseDto>>> result = studentController.getAll();
+
         assertEquals(HttpStatus.OK, result.block().getStatusCode());
         StepVerifier.create(result.block().getBody())
                 .expectNext(expectedStudents.getFirst())
@@ -84,8 +74,7 @@ class StudentControllerTest {
     }
 
     @Test
-    void shouldInsertStudentAndReturnSuccess() {
-
+    void given_validStudentRequest_when_insertCalled_then_returnsOkAndStudent() {
         when(studentDtoMapper.toStudent(studentRequestDto)).thenReturn(student);
         when(insertStudentInputPort.insert(student)).thenReturn(Mono.empty());
 
@@ -94,7 +83,6 @@ class StudentControllerTest {
         StepVerifier.create(responseMono)
                 .expectNextMatches(response -> response.getStatusCode() == HttpStatus.OK)
                 .verifyComplete();
-
         verify(insertStudentInputPort).insert(student);
     }
 

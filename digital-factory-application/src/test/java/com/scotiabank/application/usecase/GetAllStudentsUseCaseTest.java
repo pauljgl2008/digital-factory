@@ -15,7 +15,6 @@ import reactor.test.StepVerifier;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("GetAllStudentsUseCase Tests")
 class GetAllStudentsUseCaseTest {
 
     @InjectMocks

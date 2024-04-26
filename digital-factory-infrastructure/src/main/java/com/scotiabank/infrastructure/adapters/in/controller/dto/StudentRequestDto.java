@@ -1,9 +1,11 @@
 package com.scotiabank.infrastructure.adapters.in.controller.dto;
 
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+@Builder
 @Getter
 @Setter
 public class StudentRequestDto {

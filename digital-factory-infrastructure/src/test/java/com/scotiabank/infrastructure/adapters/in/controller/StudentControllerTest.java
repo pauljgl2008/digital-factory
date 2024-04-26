@@ -8,9 +8,7 @@ import com.scotiabank.domain.ports.in.InsertStudentInputPort;
 import com.scotiabank.infrastructure.adapters.in.controller.common.TestUtil;
 import com.scotiabank.infrastructure.adapters.in.controller.dto.StudentRequestDto;
 import com.scotiabank.infrastructure.adapters.in.controller.dto.StudentResponseDto;
-import com.scotiabank.infrastructure.adapters.in.controller.mapper.StudentDtoMapper;
 import com.scotiabank.infrastructure.adapters.in.controller.mapper.StudentDtoMapperImpl;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,14 +24,13 @@ import reactor.test.StepVerifier;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class StudentControllerTest {
+class StudentControllerTest {
 
     @InjectMocks
     private StudentController studentController;
@@ -76,19 +73,13 @@ public class StudentControllerTest {
 
     @Test
     void testGetAllStudents_ShouldReturnListOfStudents() {
-        Student activeStudent = Student.builder().id("1").nombre("John").apellido("Doe").estado(Status.ACTIVE)
-                .edad(28).build();
-        Flux<Student> getStudents = Flux.just(activeStudent);
+        Flux<Student> getStudents = Flux.just(student);
         when(getAllStudentsInputPort.getAll()).thenReturn(getStudents);
 
         Mono<ResponseEntity<Flux<StudentResponseDto>>> result = studentController.getAll();
-
-        List<StudentResponseDto> expected = expectedStudents;
-
-        ResponseEntity<Flux<StudentResponseDto>> current = result.block();
-        Assertions.assertEquals(HttpStatus.OK, result.block().getStatusCode());
-        StepVerifier.create(current.getBody())
-                .expectNext(expected.get(0))
+        assertEquals(HttpStatus.OK, result.block().getStatusCode());
+        StepVerifier.create(result.block().getBody())
+                .expectNext(expectedStudents.getFirst())
                 .verifyComplete();
     }
 

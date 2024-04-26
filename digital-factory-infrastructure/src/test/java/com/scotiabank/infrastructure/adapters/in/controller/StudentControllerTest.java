@@ -104,6 +104,6 @@ class StudentControllerTest {
                 .estado(estado.getValor())
                 .edad(edad)
                 .build();
-
     }
+
 }

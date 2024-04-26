@@ -31,7 +31,9 @@ class FindStudentByIdAdapterTest {
     private StudentEntityMapper studentEntityMapper;
 
     private static String studentId;
+
     private static StudentEntity studentEntity;
+
     private static Student expectedStudent;
 
     @BeforeAll
@@ -51,7 +53,6 @@ class FindStudentByIdAdapterTest {
         StepVerifier.create(result)
                 .expectNext(expectedStudent)
                 .verifyComplete();
-
         verify(studentEntityMapper).toStudent(studentEntity);
     }
 
@@ -74,4 +75,5 @@ class FindStudentByIdAdapterTest {
                 .edad(edad)
                 .build();
     }
+
 }

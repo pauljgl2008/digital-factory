@@ -2,7 +2,7 @@ package com.scotiabank.application.usecase;
 
 import com.scotiabank.domain.exception.StudentCreationConflictException;
 import com.scotiabank.domain.exception.StudentIdAlreadyExistsException;
-import com.scotiabank.domain.model.Student;
+import com.scotiabank.domain.aggregates.Student;
 import com.scotiabank.domain.ports.in.InsertStudentInputPort;
 import com.scotiabank.domain.ports.out.FindStudentByIdOutputPort;
 import com.scotiabank.domain.ports.out.InsertStudentOutputPort;

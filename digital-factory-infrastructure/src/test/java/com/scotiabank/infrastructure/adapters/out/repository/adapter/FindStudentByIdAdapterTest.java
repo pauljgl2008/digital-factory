@@ -1,7 +1,7 @@
 package com.scotiabank.infrastructure.adapters.out.repository.adapter;
 
-import com.scotiabank.domain.model.Status;
-import com.scotiabank.domain.model.Student;
+import com.scotiabank.domain.aggregates.Status;
+import com.scotiabank.domain.aggregates.Student;
 import com.scotiabank.infrastructure.adapters.out.repository.StudentReactiveCrudRepository;
 import com.scotiabank.infrastructure.adapters.out.repository.entity.StudentEntity;
 import com.scotiabank.infrastructure.adapters.out.repository.mapper.StudentEntityMapper;

@@ -1,6 +1,6 @@
 package com.scotiabank.domain.ports.out;
 
-import com.scotiabank.domain.model.Student;
+import com.scotiabank.domain.aggregates.Student;
 import reactor.core.publisher.Mono;
 
 public interface InsertStudentOutputPort {

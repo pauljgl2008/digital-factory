@@ -1,9 +1,8 @@
 package com.scotiabank.application.usecase;
 
-import com.scotiabank.domain.model.Status;
-import com.scotiabank.domain.model.Student;
+import com.scotiabank.domain.aggregates.Status;
+import com.scotiabank.domain.aggregates.Student;
 import com.scotiabank.domain.ports.out.GetAllStudentsOutputPort;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,8 +1,8 @@
 package com.scotiabank.infrastructure.adapters.in.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.scotiabank.domain.model.Status;
-import com.scotiabank.domain.model.Student;
+import com.scotiabank.domain.aggregates.Status;
+import com.scotiabank.domain.aggregates.Student;
 import com.scotiabank.domain.ports.in.GetAllStudentsInputPort;
 import com.scotiabank.domain.ports.in.InsertStudentInputPort;
 import com.scotiabank.infrastructure.adapters.in.controller.common.TestUtil;

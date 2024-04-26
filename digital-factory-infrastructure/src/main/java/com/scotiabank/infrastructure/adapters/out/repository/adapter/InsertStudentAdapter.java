@@ -1,6 +1,6 @@
 package com.scotiabank.infrastructure.adapters.out.repository.adapter;
 
-import com.scotiabank.domain.model.Student;
+import com.scotiabank.domain.aggregates.Student;
 import com.scotiabank.domain.ports.out.InsertStudentOutputPort;
 import com.scotiabank.infrastructure.adapters.out.repository.StudentReactiveCrudRepository;
 import lombok.RequiredArgsConstructor;

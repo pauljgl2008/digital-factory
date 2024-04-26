@@ -1,4 +1,4 @@
-package com.scotiabank.domain.model;
+package com.scotiabank.domain.aggregates;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

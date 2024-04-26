@@ -1,8 +1,8 @@
 package com.scotiabank.infrastructure.adapters.in.controller.mapper;
 
 
-import com.scotiabank.domain.model.Status;
-import com.scotiabank.domain.model.Student;
+import com.scotiabank.domain.aggregates.Status;
+import com.scotiabank.domain.aggregates.Student;
 import com.scotiabank.infrastructure.adapters.in.controller.dto.StudentRequestDto;
 import com.scotiabank.infrastructure.adapters.in.controller.dto.StudentResponseDto;
 import org.mapstruct.Mapper;

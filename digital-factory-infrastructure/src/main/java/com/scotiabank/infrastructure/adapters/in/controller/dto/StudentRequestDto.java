@@ -28,6 +28,7 @@ public class StudentRequestDto {
     private String lastname;
 
     @NotNull(message = STUDENT_STATUS_REQUIRED_MESSAGE)
+    @Pattern(regexp = STUDENT_STATUS_REGEX_PATTERN, message = STUDENT_STATUS_INVALID_FORMAT_MESSAGE)
     @JsonProperty(STATUS_PARAM)
     private String status;
 

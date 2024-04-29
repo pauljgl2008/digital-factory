@@ -59,7 +59,7 @@ class StudentControllerTest {
     }
 
     @Test
-    void given_requestGetStudents_when_getAllCalled_then_returnsOkAndListOfActiveStudents() {
+    void testGetAll_givenRequestGetStudents_whenGetAllCalled_thenReturnsOkAndListOfActiveStudents() {
         Flux<Student> getStudents = Flux.just(student);
         when(getAllStudentsInputPort.getAll()).thenReturn(getStudents);
 
@@ -72,7 +72,7 @@ class StudentControllerTest {
     }
 
     @Test
-    void given_validStudentRequest_when_insertCalled_then_returnsOkAndStudent() {
+    void testInsert_givenValidStudentRequest_whenInsertCalled_thenReturnsCreatedAndStudentLocation() {
         when(studentDtoMapper.toStudent(studentRequestDto)).thenReturn(student);
         when(insertStudentInputPort.insert(student)).thenReturn(Mono.empty());
 

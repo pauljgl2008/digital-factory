@@ -44,7 +44,7 @@ class FindStudentByIdAdapterTest {
     }
 
     @Test
-    void given_validIdStudent_when_findByIdCalled_then_returnsStudent() {
+    void testFindById_givenValidIdStudent_whenFindByIdCalled_thenReturnsStudent() {
         when(studentReactiveRepository.findById(studentId)).thenReturn(Mono.just(studentEntity));
 
         Mono<Student> result = findStudentByIdAdapter.findById(studentId);

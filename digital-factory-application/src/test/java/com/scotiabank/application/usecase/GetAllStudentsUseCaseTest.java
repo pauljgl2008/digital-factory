@@ -23,7 +23,7 @@ class GetAllStudentsUseCaseTest {
     private GetAllStudentsOutputPort getAllStudentsOutputPort;
 
     @Test
-    void getAll_ReturnsOnlyActiveStudents() {
+    void testGetAll_givenStudentsWithMixedStatuses_whenGetAllCalled_thenReturnsOnlyActiveStudents() {
         Student activeStudent = createStudent("456", "Jane", "Watson", Status.ACTIVE, 20);
         Student inactiveStudent = createStudent("123", "John", "Doe", Status.INACTIVE, 18);
         when(this.getAllStudentsOutputPort.getAll()).thenReturn(Flux.just(activeStudent, inactiveStudent));

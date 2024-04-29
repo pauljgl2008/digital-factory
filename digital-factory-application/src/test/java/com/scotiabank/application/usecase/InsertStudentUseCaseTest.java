@@ -42,7 +42,7 @@ class InsertStudentUseCaseTest {
     }
 
     @Test
-    void insert_WhenStudentDoesNotExist_InsertsSuccessfully() {
+    void testInsert_givenNoExistingStudent_whenInsertCalled_thenInsertsSuccessfully() {
         when(findStudentByIdOutputPort.findById(newStudent.getId())).thenReturn(Mono.empty());
         when(insertStudentOutputPort.insert(newStudent)).thenReturn(Mono.empty());
 
@@ -53,7 +53,7 @@ class InsertStudentUseCaseTest {
     }
 
     @Test
-    void insert_WhenStudentExists_ThrowsException() {
+    void testInsert_givenExistingStudent_whenInsertCalled_thenThrowsStudentIdAlreadyExistsException() {
         when(findStudentByIdOutputPort.findById(newStudent.getId())).thenReturn(Mono.just(existingStudent));
 
         Mono<Void> result = insertStudentUseCase.insert(newStudent);
@@ -64,7 +64,7 @@ class InsertStudentUseCaseTest {
     }
 
     @Test
-    void insert_WhenInsertionFails_ThrowsException() {
+    void testInsert_givenNoExistingStudentButInsertionFails_whenInsertCalled_thenThrowsStudentCreationConflictException() {
         when(findStudentByIdOutputPort.findById(newStudent.getId())).thenReturn(Mono.empty());
         when(insertStudentOutputPort.insert(newStudent)).thenReturn(Mono.error(new StudentCreationConflictException(
                 HttpStatus.CONFLICT,

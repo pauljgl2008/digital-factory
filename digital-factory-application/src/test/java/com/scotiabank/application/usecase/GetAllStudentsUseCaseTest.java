@@ -22,11 +22,10 @@ class GetAllStudentsUseCaseTest {
     @Mock
     private GetAllStudentsOutputPort getAllStudentsOutputPort;
 
-
     @Test
     void getAll_ReturnsOnlyActiveStudents() {
-        Student activeStudent = Student.builder().nombre("John").estado(Status.ACTIVE).build();
-        Student inactiveStudent = Student.builder().nombre("Jane").estado(Status.INACTIVE).build();
+        Student activeStudent = createStudent("456", "Jane", "Watson", Status.ACTIVE, 20);
+        Student inactiveStudent = createStudent("123", "John", "Doe", Status.INACTIVE, 18);
         when(this.getAllStudentsOutputPort.getAll()).thenReturn(Flux.just(activeStudent, inactiveStudent));
 
         Flux<Student> result = getAllStudentsUseCase.getAll();
@@ -34,6 +33,16 @@ class GetAllStudentsUseCaseTest {
         StepVerifier.create(result)
                 .expectNext(activeStudent)
                 .verifyComplete();
+    }
+
+    private static Student createStudent(String id, String name, String lastname, Status status, int age) {
+        return Student.builder()
+                .id(id)
+                .name(name)
+                .lastname(lastname)
+                .status(status)
+                .age(age)
+                .build();
     }
 
 }

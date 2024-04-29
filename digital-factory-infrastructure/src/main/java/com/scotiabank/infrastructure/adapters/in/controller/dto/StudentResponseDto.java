@@ -1,22 +1,24 @@
 package com.scotiabank.infrastructure.adapters.in.controller.dto;
 
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 @EqualsAndHashCode
 public class StudentResponseDto {
 
     private String id;
 
-    private String nombre;
+    private String name;
 
-    private String apellido;
+    private String lastname;
 
-    private String estado;
+    private String status;
 
-    private Integer edad;
+    private Integer age;
 
 }

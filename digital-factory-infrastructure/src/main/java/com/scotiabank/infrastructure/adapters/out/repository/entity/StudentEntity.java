@@ -15,12 +15,12 @@ public class StudentEntity {
     @Id
     private String id;
 
-    private String nombre;
+    private String name;
 
-    private String apellido;
+    private String lastname;
 
-    private String estado;
+    private String status;
 
-    private Integer edad;
+    private Integer age;
 
 }

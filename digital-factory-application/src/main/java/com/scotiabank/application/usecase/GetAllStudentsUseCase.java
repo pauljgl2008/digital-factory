@@ -39,7 +39,7 @@ public class GetAllStudentsUseCase implements GetAllStudentsInputPort {
      * @return true si el alumno está activo, false en caso contrario.
      */
     private boolean isStudentActive(Student student) {
-        return Status.ACTIVE.equals(student.getEstado());
+        return Status.ACTIVE.equals(student.getStatus());
     }
 
 }

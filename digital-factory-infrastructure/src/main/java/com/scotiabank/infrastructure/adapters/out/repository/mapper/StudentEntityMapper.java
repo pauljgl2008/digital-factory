@@ -11,8 +11,8 @@ public interface StudentEntityMapper {
 
     Student toStudent(StudentEntity myEntity);
 
-    default Status toStatusEnum(String estado) {
-        return Status.fromValor(estado);
+    default Status toStatusEnum(String status) {
+        return Status.fromValor(status);
     }
 
 }

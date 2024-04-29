@@ -2,7 +2,7 @@ package com.scotiabank.infrastructure.adapters.out.repository.adapter;
 
 import com.scotiabank.domain.aggregates.Student;
 import com.scotiabank.domain.ports.out.InsertStudentOutputPort;
-import com.scotiabank.infrastructure.adapters.out.repository.StudentReactiveCrudRepository;
+import com.scotiabank.infrastructure.adapters.out.repository.StudentReactiveRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
@@ -11,12 +11,12 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class InsertStudentAdapter implements InsertStudentOutputPort {
 
-    private final StudentReactiveCrudRepository studentReactiveCrudRepository;
+    private final StudentReactiveRepository studentReactiveRepository;
 
     @Override
     public Mono<Void> insert(Student student) {
-        return this.studentReactiveCrudRepository.insertStudent(student.getId(), student.getNombre(), student.getApellido(),
-                student.getEstado().getValor(), student.getEdad());
+        return this.studentReactiveRepository.insertStudent(student.getId(), student.getName(), student.getLastname(),
+                student.getStatus().getValor(), student.getAge());
     }
 
 }

@@ -13,12 +13,12 @@ public class Student {
 
     private String id;
 
-    private String nombre;
+    private String name;
 
-    private String apellido;
+    private String lastname;
 
-    private Status estado;
+    private Status status;
 
-    private Integer edad;
+    private Integer age;
 
 }

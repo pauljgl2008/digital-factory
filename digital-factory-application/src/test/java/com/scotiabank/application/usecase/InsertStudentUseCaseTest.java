@@ -1,11 +1,12 @@
 package com.scotiabank.application.usecase;
 
-import com.scotiabank.domain.exception.StudentCreationConflictException;
-import com.scotiabank.domain.exception.StudentIdAlreadyExistsException;
 import com.scotiabank.domain.aggregates.Status;
 import com.scotiabank.domain.aggregates.Student;
+import com.scotiabank.domain.exception.StudentCreationConflictException;
+import com.scotiabank.domain.exception.StudentIdAlreadyExistsException;
 import com.scotiabank.domain.ports.out.FindStudentByIdOutputPort;
 import com.scotiabank.domain.ports.out.InsertStudentOutputPort;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,20 +23,30 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class InsertStudentUseCaseTest {
 
-    @Mock
-    private FindStudentByIdOutputPort findStudentByIdOutputPort;
-    @Mock
-    private InsertStudentOutputPort insertStudentOutputPort;
     @InjectMocks
     private InsertStudentUseCase insertStudentUseCase;
 
+    @Mock
+    private FindStudentByIdOutputPort findStudentByIdOutputPort;
+
+    @Mock
+    private InsertStudentOutputPort insertStudentOutputPort;
+
+    private static Student existingStudent;
+    private static Student newStudent;
+
+    @BeforeAll
+    static void setUp() {
+        existingStudent = createStudent("123", "John", "Doe", Status.INACTIVE, 18);
+        newStudent = createStudent("456", "Jane", "Watson", Status.ACTIVE, 20);
+    }
+
     @Test
     void insert_WhenStudentDoesNotExist_InsertsSuccessfully() {
-        Student student = Student.builder().id("1").nombre("John").apellido("Doe").estado(Status.ACTIVE).edad(18).build();
-        when(findStudentByIdOutputPort.findById(student.getId())).thenReturn(Mono.empty());
-        when(insertStudentOutputPort.insert(student)).thenReturn(Mono.empty());
+        when(findStudentByIdOutputPort.findById(newStudent.getId())).thenReturn(Mono.empty());
+        when(insertStudentOutputPort.insert(newStudent)).thenReturn(Mono.empty());
 
-        Mono<Void> result = insertStudentUseCase.insert(student);
+        Mono<Void> result = insertStudentUseCase.insert(newStudent);
 
         StepVerifier.create(result)
                 .verifyComplete();
@@ -43,11 +54,9 @@ class InsertStudentUseCaseTest {
 
     @Test
     void insert_WhenStudentExists_ThrowsException() {
-        Student student = Student.builder().id("123").nombre("John").build();
-        Mono<Student> x = Mono.just(student);
-        when(findStudentByIdOutputPort.findById(student.getId())).thenReturn(x);
+        when(findStudentByIdOutputPort.findById(newStudent.getId())).thenReturn(Mono.just(existingStudent));
 
-        Mono<Void> result = insertStudentUseCase.insert(student);
+        Mono<Void> result = insertStudentUseCase.insert(newStudent);
 
         StepVerifier.create(result)
                 .expectError(StudentIdAlreadyExistsException.class)
@@ -56,18 +65,28 @@ class InsertStudentUseCaseTest {
 
     @Test
     void insert_WhenInsertionFails_ThrowsException() {
-        Student student = Student.builder().id("123").nombre("John").build();
-        when(findStudentByIdOutputPort.findById(student.getId())).thenReturn(Mono.empty());
-        when(insertStudentOutputPort.insert(student)).thenReturn(Mono.error(new StudentCreationConflictException(
+        when(findStudentByIdOutputPort.findById(newStudent.getId())).thenReturn(Mono.empty());
+        when(insertStudentOutputPort.insert(newStudent)).thenReturn(Mono.error(new StudentCreationConflictException(
                 HttpStatus.CONFLICT,
-                STUDENT_ID_FIELD, student.getId(),
+                STUDENT_ID_FIELD, newStudent.getId(),
                 STUDENT_INSERTION_CONFLICT_ERROR_MESSAGE)));
 
-        Mono<Void> result = insertStudentUseCase.insert(student);
+        Mono<Void> result = insertStudentUseCase.insert(newStudent);
 
         StepVerifier.create(result)
                 .expectErrorMatches(throwable -> throwable instanceof StudentCreationConflictException &&
                         ((StudentCreationConflictException) throwable).getStatusCode() == HttpStatus.CONFLICT)
                 .verify();
     }
+
+    private static Student createStudent(String id, String name, String lastname, Status status, int age) {
+        return Student.builder()
+                .id(id)
+                .name(name)
+                .lastname(lastname)
+                .status(status)
+                .age(age)
+                .build();
+    }
+
 }

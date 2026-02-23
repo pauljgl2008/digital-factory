@@ -1,4 +1,4 @@
-package com.scotiabank;
+package com.scotiabank.boot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class DigitalFactoryApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DigitalFactoryApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(DigitalFactoryApplication.class, args);
+    }
 
 }

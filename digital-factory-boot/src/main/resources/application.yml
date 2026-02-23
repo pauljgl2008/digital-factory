@@ -1,0 +1,23 @@
+logging.level.com.scotiabank.digital.factory: DEBUG
+logging:
+  level:
+    org:
+      springframework:
+        r2dbc: DEBUG
+spring:
+  application:
+    name: "digital-factory"
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  datasource:
+    url: jdbc:h2:mem:studentdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  sql:
+    init:
+      mode: always

@@ -18,7 +18,7 @@ public class StudentRequestDto {
     private String id;
 
     @NotBlank(message = STUDENT_NAME_REQUIRED_MESSAGE)
-    @Size(max = 15, message = STUDENT_NAME_LENGTH_EXCEEDED_MESSAGE)
+    @Size(max = 10, message = STUDENT_NAME_LENGTH_EXCEEDED_MESSAGE)
     @JsonProperty(NAME_PARAM)
     private String name;
 

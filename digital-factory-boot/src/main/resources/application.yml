@@ -1,6 +1,9 @@
-logging.level.com.scotiabank.digital.factory: DEBUG
 logging:
   level:
+    com:
+      scotiabank:
+        digital:
+          factory: DEBUG
     org:
       springframework:
         r2dbc: DEBUG

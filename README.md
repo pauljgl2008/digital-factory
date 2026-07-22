@@ -1,60 +1,60 @@
 # Digital Factory
 
-API reactiva para la gestión de alumnos basada en una arquitectura hexagonal (puertos y adaptadores).
+Reactive API for student management based on hexagonal architecture (ports and adapters).
 
-## Stack tecnológico
+## Tech Stack
 
 - Java 21
 - Spring Boot 3.4.1 (WebFlux + R2DBC)
-- H2 en memoria (base de datos reactiva)
+- H2 in-memory (reactive database)
 - Project Lombok
 - MapStruct 1.5.5.Final
 - JaCoCo 0.8.14
-- Maven (multi-módulo)
+- Maven (multi-module)
 
-## Módulos
+## Modules
 
 ```
-digital-factory (pom padre)
-├── digital-factory-domain      — Entidades, puertos y excepciones
-├── digital-factory-application — Casos de uso
-├── digital-factory-infrastructure — Adaptadores (controladores, repositorios)
-└── digital-factory-boot        — Punto de entrada de la aplicación
+digital-factory (parent pom)
+├── digital-factory-domain      — Entities, ports, and exceptions
+├── digital-factory-application — Use cases
+├── digital-factory-infrastructure — Adapters (controllers, repositories)
+└── digital-factory-boot        — Application entry point
 ```
 
-Las dependencias entre módulos siguen el flujo de la arquitectura hexagonal: `boot` → `application` → `domain` y `boot` → `infrastructure` → `domain`. El dominio no conoce a ningún otro módulo.
+Module dependencies follow the hexagonal architecture flow: `boot` → `application` → `domain` and `boot` → `infrastructure` → `domain`. Domain knows nothing about other modules.
 
 ## Endpoints
 
-| Método | Ruta               | Descripción                      |
-|--------|--------------------|----------------------------------|
-| GET    | /api/v1/alumnos    | Obtiene todos los alumnos activos |
-| POST   | /api/v1/alumnos    | Registra un nuevo alumno          |
+| Method | Route               | Description                    |
+|--------|---------------------|--------------------------------|
+| GET    | /api/v1/students    | Get all active students        |
+| POST   | /api/v1/students    | Register a new student         |
 
-### POST /api/v1/alumnos
+### POST /api/v1/students
 
 Payload:
 
 ```json
 {
   "id": "72332211",
-  "nombre": "Paúl",
-  "apellido": "Guevara",
-  "estado": "activo",
-  "edad": 30
+  "name": "Paúl",
+  "lastname": "Guevara",
+  "status": "active",
+  "age": 30
 }
 ```
 
-## Ejecución
+## Run
 
 ```bash
 mvn clean install -DskipTests
 mvn spring-boot:run -pl digital-factory-boot
 ```
 
-## Construcción
+## Build
 
-El proyecto requiere Java 21 y Maven 3.8+.
+Requires Java 21 and Maven 3.8+.
 
 ```bash
 mvn clean package

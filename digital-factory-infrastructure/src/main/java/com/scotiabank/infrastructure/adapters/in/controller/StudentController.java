@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@RequestMapping("/api/v1/alumnos")
+@RequestMapping("/api/v1/students")
 @RestController
 @RequiredArgsConstructor
 public class StudentController {

@@ -8,10 +8,10 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface StudentEntityMapper {
 
-    Student toStudent(StudentEntity myEntity);
+    Student toStudent(StudentEntity entity);
 
     default Status toStatusEnum(String status) {
-        return Status.fromValor(status);
+        return Status.fromValue(status);
     }
 
 }

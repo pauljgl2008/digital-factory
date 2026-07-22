@@ -46,7 +46,7 @@ public class InsertStudentUseCase implements InsertStudentInputPort {
     public Mono<Void> insert(Student student) {
         return findStudentByIdOutputPort.findById(student.getId())
                 .hasElement()
-                .flatMap(studentExists -> Boolean.TRUE.equals(studentExists)
+                .flatMap(studentExists -> studentExists
                         ? handleStudentExists(student)
                         : insertStudentOutputPort.insert(student)
                         .onErrorResume(error -> handleInsertionError(error, student.getId())));

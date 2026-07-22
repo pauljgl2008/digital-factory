@@ -3,22 +3,20 @@ package com.scotiabank.domain.aggregates;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 @Builder
 @EqualsAndHashCode
 public class Student {
 
-    private String id;
+    private final String id;
 
-    private String name;
+    private final String name;
 
-    private String lastname;
+    private final String lastname;
 
-    private Status status;
+    private final Status status;
 
-    private Integer age;
+    private final Integer age;
 
 }

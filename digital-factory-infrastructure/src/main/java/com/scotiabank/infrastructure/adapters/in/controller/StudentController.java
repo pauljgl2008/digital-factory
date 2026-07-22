@@ -24,18 +24,14 @@ public class StudentController {
     private final StudentDtoMapper studentDtoMapper;
 
     @GetMapping
-    public Mono<ResponseEntity<Flux<StudentResponseDto>>> getAll() {
-        return this.getAllStudentsInputPort.getAll()
-                .map(studentDtoMapper::toStudentResponse)
-                .flatMap(Mono::just)
-                .collectList()
-                .map(studentResponses -> ResponseEntity.ok()
-                        .body(Flux.fromIterable(studentResponses)));
+    public Flux<StudentResponseDto> getAll() {
+        return getAllStudentsInputPort.getAll()
+                .map(studentDtoMapper::toStudentResponse);
     }
 
     @PostMapping
     public Mono<ResponseEntity<Void>> insert(@Valid @RequestBody StudentRequestDto studentRequestDto) {
-        return this.insertStudentInputPort.insert(this.studentDtoMapper.toStudent(studentRequestDto))
+        return insertStudentInputPort.insert(studentDtoMapper.toStudent(studentRequestDto))
                 .then(Mono.just(ResponseEntity.ok().build()));
     }
 

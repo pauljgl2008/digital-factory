@@ -9,7 +9,6 @@ import lombok.Setter;
 import static com.scotiabank.infrastructure.adapters.in.controller.common.ValidationConstants.*;
 
 @Getter
-@Setter
 @Builder
 @EqualsAndHashCode
 public class StudentResponseDto {

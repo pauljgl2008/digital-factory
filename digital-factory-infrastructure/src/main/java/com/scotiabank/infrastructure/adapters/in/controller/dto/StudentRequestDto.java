@@ -10,7 +10,6 @@ import static com.scotiabank.infrastructure.adapters.in.controller.common.Valida
 
 @Builder
 @Getter
-@Setter
 public class StudentRequestDto {
 
     @NotBlank(message = STUDENT_ID_REQUIRED_MESSAGE)
